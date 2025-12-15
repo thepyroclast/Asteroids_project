@@ -1,3 +1,4 @@
+#code for basic sprites
 import pygame
 
 # Base class for game objects
