@@ -50,6 +50,7 @@ def main():
                 if asteroid.collides_with(shot) == True:
                     asteroid.kill()
                     shot.kill()
+                    
         updatable.update(dt)
         for item in drawable:
             item.draw(screen)
