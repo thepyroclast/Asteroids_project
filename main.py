@@ -48,9 +48,9 @@ def main():
         for asteroid in asteroids:
             for shot in shots:
                 if asteroid.collides_with(shot) == True:
+                    log_event("asteroid_shot")
                     asteroid.kill()
                     shot.kill()
-                    
         updatable.update(dt)
         for item in drawable:
             item.draw(screen)
