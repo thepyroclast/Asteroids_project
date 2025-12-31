@@ -7,7 +7,7 @@ from asteroid import Asteroid
 from asteroidfield import AsteroidField
 from logger import log_event
 import sys
-from shot import Shot
+from shot import Shot, Bigshot
 
 
 
@@ -29,6 +29,7 @@ def main():
     Asteroid.containers = (asteroids, updatable, drawable)
     AsteroidField.containers = (updatable)
     Shot.containers = (updatable, drawable, shots)
+    Bigshot.containers = (updatable, drawable, shots)
 
     player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
     asteroid_field = AsteroidField()
@@ -50,7 +51,7 @@ def main():
                 if asteroid.collides_with(shot) == True:
                     log_event("asteroid_shot")
                     asteroid.split()
-                    shot.kill()
+                    shot.split()
         updatable.update(dt)
         for item in drawable:
             item.draw(screen)
