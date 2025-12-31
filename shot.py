@@ -35,8 +35,14 @@ class Bigshot(CircleShape):
          angle = random.uniform(20, 50)
          Shot_angle_1 = self.velocity.rotate(angle)
          Shot_angle_2 = self.velocity.rotate(-angle)
+         shot_angle_3 = self.velocity.rotate(angle + angle)
+         shot_angle_4 = self.velocity.rotate(-angle + -angle)
          shot_1 = Shot(self.position[0], self.position[1])
          shot_2 = Shot(self.position[0], self.position[1])
-         shot_1.velocity =  Shot_angle_1 * 1.2
-         shot_2.velocity = Shot_angle_2 * 1.2
+         shot_3 = Shot(self.position[0], self.position[1])
+         shot_4 = Shot(self.position[0], self.position[1])
+         shot_1.velocity =  Shot_angle_1 
+         shot_2.velocity = Shot_angle_2 
+         shot_3.velocity = shot_angle_3 
+         shot_4.velocity = shot_angle_4
 
