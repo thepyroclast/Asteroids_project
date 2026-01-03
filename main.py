@@ -36,18 +36,10 @@ def main():
     player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
     asteroid_field = AsteroidField()
     
-    highest_score = 0
-    highest_player = ""
-    with open("highest_score.txt") as highest_file:
-        first_line = highest_file.readline()
-        if len(first_line) <= 20:
-            print("bad highest file")
-        else:
-            highest_player = first_line[:20]
-            highest_player = highest_player.strip()
-            score_string = first_line[20:]
-            highest_score = int(score_string)
+    high_scores = _fetch_high_scores()
+
     dt = 0
+
     while True:
         log_state()
         for event in pygame.event.get():
@@ -62,14 +54,15 @@ def main():
                 print("Game over!")
                 print(f"Kill count: {kill_count}!")
                 print(f"Current score: {int_score}!")
-                if int_score > highest_score:
-                    print(f"Congrats on the highest score!")
+                if len(high_scores) < 10 or high_scores[-1]["score"] < int_score:
+                    print(f"Congrats on the high score!")
                     name = input("Type your name for posterity:")
                     if len(name) > 20:
                         name = name[:20]
-                    print(f"Congrats on the highest score! You beat {highest_player}'s old score of {highest_score}.")
-                    with open("highest_score.txt", "w") as highest_file:
-                        highest_file.write(f"{name:<20}{int_score}\n")
+                    high_scores.append({"name": name, "score": int_score})
+                    high_scores.sort(key=_sort_by_score, reverse= True)
+                    _print_high_scores(high_scores)
+                    _save_high_scores(high_scores)
                 sys.exit()
         for asteroid in asteroids:
             for shot in shots:
@@ -85,7 +78,43 @@ def main():
         score += 1 
         fps = clock.tick(60)
         dt = fps / 1000
+
+
+def _fetch_high_scores():
+    high_scores = []
+    try:
+        with open("high_scores.txt") as list_of_scores:
+            current_line = list_of_scores.readline()
+            while len(current_line) > 20:
+                high_player = current_line[:20].strip()
+                high_score = int(current_line[20:])
+                high_scores.append({"name": high_player, "score": high_score})
+                current_line = list_of_scores.readline()
+    except FileNotFoundError:
+        pass  # this is fine :fire:
+    return high_scores
         
+def _print_high_scores(scores):
+    counter = 1
+    print("current high scores:")
+    for entry in scores:
+        print(f"{counter}: {entry["name"]:<20}{entry["score"]}")
+        counter += 1
+
+def _save_high_scores(scores):
+     with open("high_scores.txt", "w") as list_of_scores:
+         counter = 1
+         for entry in scores:
+             list_of_scores.write(f"{entry["name"]:<20}{entry["score"]}\n")
+             counter += 1
+             if counter > 10:
+                 break 
+
+def _sort_by_score(entry):
+    return entry["score"]
+         
+
+    
 
 if __name__ == "__main__":
     main()
