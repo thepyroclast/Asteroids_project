@@ -12,9 +12,13 @@ from shot import Shot, Bigshot
 
 
 def main():
+    sec_weapons = ("big shoot", "mine lay",)
     print(f"Starting Asteroids with pygame version: {pygame.version.ver}")
     print(f"Screen width: {SCREEN_WIDTH}")
     print(f"Screen height: {SCREEN_HEIGHT}")
+    print(f"current secondary weapons: {sec_weapons}")
+    weapon = input("choose your secondary weapon:")
+    print(f"selcted weapon is {weapon}")
     
     pygame.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -34,6 +38,8 @@ def main():
     Bigshot.containers = (updatable, drawable, shots)
 
     player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
+    player.secondary_weapon = player.sec_weapon(weapon)
+    print(player.secondary_weapon)
     asteroid_field = AsteroidField()
     
     high_scores = _fetch_high_scores()
