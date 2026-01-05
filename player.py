@@ -3,7 +3,7 @@ from circleshape import CircleShape
 from constants import PLAYER_RADIUS
 from constants import LINE_WIDTH, PLAYER_TURN_SPEED, PLAYER_SPEED, PLAYER_SHOOT_SPEED, PLAYER_SHOOT_COOLDOWN_SECONDS
 import pygame
-from shot import Shot, Bigshot
+from shot import Shot, Bigshot, Black_hole
 
 class Player(CircleShape):
     def __init__(self, x, y):
@@ -43,8 +43,12 @@ class Player(CircleShape):
         if keys[pygame.K_s]:
             self.move(-dt)
         if keys[pygame.K_LSHIFT]:
+            if keys[pygame.K_SPACE]:
+                return
             self.shoot()
         if keys[pygame.K_SPACE]:
+            if keys[pygame.K_LSHIFT]:
+                return
             self.secondary_weapon()
 
     def move(self, dt):
@@ -67,19 +71,19 @@ class Player(CircleShape):
         bullet = Bigshot(self.position[0], self.position[1])
         bullet.velocity = pygame.Vector2(0, 1).rotate(self.rotation) * PLAYER_SHOOT_SPEED 
 
-    def mine_lay(self):
+    def black_hole(self):
         if self.shot_cooldown_timer_second > 0:
             return
         self.shot_cooldown_timer_second = PLAYER_SHOOT_COOLDOWN_SECONDS * 3
-        mine =  Bigshot(self.position[0], self.position[1])
-        mine.velocity = pygame.Vector2(0, 0).rotate(self.rotation)
+        singulartity =  Black_hole(self.position[0], self.position[1])
+        singulartity.velocity = pygame.Vector2(0, 0).rotate(self.rotation)
 
     def sec_weapon(self, chosen_weapon):
         if chosen_weapon == "big shoot":
             current_weapon = self.big_shoot
             return current_weapon
-        if chosen_weapon == "mine lay":
-            current_weapon = self.mine_lay
+        if chosen_weapon == "singularity":
+            current_weapon = self.black_hole 
             return current_weapon
         else:
             raise Exception(f"{chosen_weapon} is not a weapon")

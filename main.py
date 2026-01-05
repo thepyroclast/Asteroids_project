@@ -7,12 +7,12 @@ from asteroid import Asteroid
 from asteroidfield import AsteroidField
 from logger import log_event
 import sys
-from shot import Shot, Bigshot
+from shot import Shot, Bigshot, Black_hole
 
 
 
 def main():
-    sec_weapons = ("big shoot", "mine lay",)
+    sec_weapons = ("big shoot", "singularity",)
     print(f"Starting Asteroids with pygame version: {pygame.version.ver}")
     print(f"Screen width: {SCREEN_WIDTH}")
     print(f"Screen height: {SCREEN_HEIGHT}")
@@ -36,6 +36,7 @@ def main():
     AsteroidField.containers = (updatable)
     Shot.containers = (updatable, drawable, shots)
     Bigshot.containers = (updatable, drawable, shots)
+    Black_hole.containers = (updatable, drawable, shots)
 
     player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
     player.secondary_weapon = player.sec_weapon(weapon)

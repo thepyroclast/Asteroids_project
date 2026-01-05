@@ -46,3 +46,16 @@ class Bigshot(CircleShape):
          shot_3.velocity = shot_angle_3 
          shot_4.velocity = shot_angle_4
 
+class Black_hole(CircleShape):
+     def __init__(self, x, y):
+          super().__init__(x, y, BIG_SHOT_RADIUS * 1.5)
+          self.color = (225, 102, 153)
+
+     def draw(self, screen):
+            pygame.draw.circle(screen, self.color, self.position, self.radius, LINE_WIDTH)
+
+     def update(self, dt):
+          self.radius += 0.3
+
+     def split(self):
+          self.kill()
