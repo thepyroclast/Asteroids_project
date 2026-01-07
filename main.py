@@ -12,12 +12,12 @@ from shot import Shot, Bigshot, Black_hole
 
 
 def main():
-    sec_weapons = ("big shoot", "singularity",)
+    sec_weapons = ("main cannon", "singularity",)
     print(f"Starting Asteroids with pygame version: {pygame.version.ver}")
     print(f"Screen width: {SCREEN_WIDTH}")
     print(f"Screen height: {SCREEN_HEIGHT}")
     print(f"current secondary weapons: {sec_weapons}")
-    weapon = input("choose your secondary weapon:")
+    weapon = input("choose your secondary weapon: ")
     print(f"selcted weapon is {weapon}")
     
     pygame.init()
@@ -69,10 +69,10 @@ def main():
                     high_scores.append({"name": name, "score": int_score})
                     high_scores.sort(key=_sort_by_score, reverse= True)
                     _print_high_scores(high_scores)
-                    _save_high_scores(high_scores)
+                    _save_high_scores(high_scores)  
                 sys.exit()
         for asteroid in asteroids:
-            for shot in shots:
+            for shot in shots: 
                 if asteroid.collides_with(shot) == True:
                     log_event("asteroid_shot")
                     asteroid.split()

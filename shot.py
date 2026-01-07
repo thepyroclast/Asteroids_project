@@ -9,11 +9,16 @@ class Shot(CircleShape):
     def __init__(self, x, y):
         super().__init__(x, y, SHOT_RADIUS)
         self.color = (255, 102, 153)
+        self.counter = 0
+
     def draw(self, screen):
             pygame.draw.circle(screen, self.color, self.position, self.radius, LINE_WIDTH)
 
     def update(self, dt):
          self.position += self.velocity * dt
+         self.counter += 1 
+         if self.counter == 140:
+              self.kill()
 
     def split(self):
          self.kill()
@@ -23,12 +28,16 @@ class Bigshot(CircleShape):
      def __init__(self, x, y):
         super().__init__(x, y, BIG_SHOT_RADIUS)
         self.color = (225, 102, 153)
+        self.counter = 0 
 
      def draw(self, screen):
           pygame.draw.circle(screen, self.color, self.position, self.radius, LINE_WIDTH)
           
      def update(self, dt):
           self.position += self.velocity * dt
+          self.counter += 1
+          if self.counter == 110:
+               self.kill()
     
      def split(self):
          self.kill()

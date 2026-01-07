@@ -74,12 +74,12 @@ class Player(CircleShape):
     def black_hole(self):
         if self.shot_cooldown_timer_second > 0:
             return
-        self.shot_cooldown_timer_second = PLAYER_SHOOT_COOLDOWN_SECONDS * 3
+        self.shot_cooldown_timer_second = PLAYER_SHOOT_COOLDOWN_SECONDS * 4
         singulartity =  Black_hole(self.position[0], self.position[1])
         singulartity.velocity = pygame.Vector2(0, 0).rotate(self.rotation)
 
     def sec_weapon(self, chosen_weapon):
-        if chosen_weapon == "big shoot":
+        if chosen_weapon == "main cannon":
             current_weapon = self.big_shoot
             return current_weapon
         if chosen_weapon == "singularity":
