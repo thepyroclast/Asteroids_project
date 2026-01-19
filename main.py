@@ -3,7 +3,7 @@ import pygame
 from constants import SCREEN_HEIGHT, SCREEN_WIDTH
 from logger import log_state
 from player import Player
-from asteroid import Asteroid
+from asteroid import Asteroid, PowerUp
 from asteroidfield import AsteroidField
 from logger import log_event
 import sys
@@ -37,6 +37,7 @@ def main():
     Shot.containers = (updatable, drawable, shots)
     Bigshot.containers = (updatable, drawable, shots)
     Black_hole.containers = (updatable, drawable, shots)
+    PowerUp.containers = (updatable, drawable)
 
     player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
     player.secondary_weapon = player.sec_weapon(weapon)

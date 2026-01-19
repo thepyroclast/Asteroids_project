@@ -19,6 +19,8 @@ class Asteroid(CircleShape):
          
     def split(self):
          self.kill()
+         if self.color == (229, 72, 242):
+              power_up = PowerUp(self.position[0], self.position[1], 15, (67, 70, 255))
          if self.radius <= ASTEROID_MIN_RADIUS:
               return
          log_event("asteroid_split")
@@ -31,4 +33,13 @@ class Asteroid(CircleShape):
          asteroid_1.velocity = asteroid_angle_1 * 1.2
          asteroid_2.velocity = asteroid_angle_2 * 1.2
 
+class PowerUp(CircleShape):
+     def __init__(self, x, y, radius, color ):
+          super().__init__(x, y, radius,)
+          self.color = color 
 
+     def draw(self, screen):
+          pygame.draw.circle(screen, self.color, self.position, self.radius, LINE_WIDTH)
+
+     def split(self):
+          self.kill()
