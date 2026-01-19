@@ -68,8 +68,8 @@ def main():
                         name = name[:20]
                     high_scores.append({"name": name, "score": int_score})
                     high_scores.sort(key=_sort_by_score, reverse= True)
-                    _print_high_scores(high_scores)
                     _save_high_scores(high_scores)  
+                _print_high_scores(high_scores)
                 sys.exit()
         for asteroid in asteroids:
             for shot in shots: 
