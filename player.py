@@ -13,6 +13,7 @@ class Player(CircleShape):
         self.shot_cooldown_timer_second = 0 
         self.color = (182, 241, 242)
         self.secondary_weapon = None
+        self.shield = 0 
 
     def triangle(self):
         forward = pygame.Vector2(0, 1).rotate(self.rotation)
@@ -32,6 +33,11 @@ class Player(CircleShape):
         keys = pygame.key.get_pressed()
         self.shot_cooldown_timer -= dt
         self.shot_cooldown_timer_second -= dt 
+        self.shield -= dt
+        if self.shield > 0:
+            self.color = (67, 70, 255)
+        else:
+            self.color = (182, 241, 242)
 
         if keys[pygame.K_a]:
             reverse_dt = -dt

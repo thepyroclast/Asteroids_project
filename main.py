@@ -30,6 +30,7 @@ def main():
     drawable = pygame.sprite.Group()
     asteroids = pygame.sprite.Group()
     shots = pygame.sprite.Group()
+    power_ups = pygame.sprite.Group()
 
     Player.containers = (updatable, drawable)
     Asteroid.containers = (asteroids, updatable, drawable)
@@ -37,7 +38,7 @@ def main():
     Shot.containers = (updatable, drawable, shots)
     Bigshot.containers = (updatable, drawable, shots)
     Black_hole.containers = (updatable, drawable, shots)
-    PowerUp.containers = (updatable, drawable)
+    PowerUp.containers = (updatable, drawable, power_ups)
 
     player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
     player.secondary_weapon = player.sec_weapon(weapon)
@@ -56,22 +57,28 @@ def main():
         screen.fill("black")
         for asteroid in asteroids:
             if asteroid.collides_with(player) == True:
-                log_event("player_hit")
-                score = score / 60 + kill_count
-                int_score = int(score)
-                print("Game over!")
-                print(f"Kill count: {kill_count}!")
-                print(f"Current score: {int_score}!")
-                if len(high_scores) < 10 or high_scores[-1]["score"] < int_score:
-                    print(f"Congrats on the high score!")
-                    name = input("Type your name for posterity:")
-                    if len(name) > 20:
-                        name = name[:20]
-                    high_scores.append({"name": name, "score": int_score})
-                    high_scores.sort(key=_sort_by_score, reverse= True)
-                    _save_high_scores(high_scores)  
-                _print_high_scores(high_scores)
-                sys.exit()
+                if player.shield > 0:
+                    print("shielded")
+                    player.shield = 0
+                    asteroid.kill()
+                    score -= 10
+                else:
+                    log_event("player_hit")
+                    score = score / 60 + kill_count
+                    int_score = int(score)
+                    print("Game over!")
+                    print(f"Kill count: {kill_count}!")
+                    print(f"Current score: {int_score}!")
+                    if len(high_scores) < 10 or high_scores[-1]["score"] < int_score:
+                        print(f"Congrats on the high score!")
+                        name = input("Type your name for posterity:")
+                        if len(name) > 20:
+                            name = name[:20]
+                        high_scores.append({"name": name, "score": int_score})
+                        high_scores.sort(key=_sort_by_score, reverse= True)
+                        _save_high_scores(high_scores)  
+                    _print_high_scores(high_scores)
+                    sys.exit()
         for asteroid in asteroids:
             for shot in shots: 
                 if asteroid.collides_with(shot) == True:
@@ -79,6 +86,10 @@ def main():
                     asteroid.split()
                     shot.split()
                     kill_count += 1
+        for power_up in power_ups:
+            if power_up.collides_with(player):
+                player.shield = 100
+                power_up.split()
         updatable.update(dt)
         for item in drawable:
             item.draw(screen)
