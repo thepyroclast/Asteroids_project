@@ -82,10 +82,13 @@ def main():
         for asteroid in asteroids:
             for shot in shots: 
                 if asteroid.collides_with(shot) == True:
-                    log_event("asteroid_shot")
-                    asteroid.split()
+                    asteroid.health -= 1
+                    print(asteroid.health)
+                    if asteroid.health <= 0:
+                        log_event("asteroid_shot")
+                        asteroid.split()
+                        kill_count += 1
                     shot.split()
-                    kill_count += 1
         for power_up in power_ups:
             if power_up.collides_with(player):
                 player.shield = 100

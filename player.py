@@ -80,7 +80,7 @@ class Player(CircleShape):
     def black_hole(self):
         if self.shot_cooldown_timer_second > 0:
             return
-        self.shot_cooldown_timer_second = PLAYER_SHOOT_COOLDOWN_SECONDS * 4
+        self.shot_cooldown_timer_second = PLAYER_SHOOT_COOLDOWN_SECONDS * 2
         singulartity =  Black_hole(self.position[0], self.position[1])
         singulartity.velocity = pygame.Vector2(0, 0).rotate(self.rotation)
 
