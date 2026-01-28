@@ -49,7 +49,6 @@ def main():
 
     player1 = Player1(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
     player1.secondary_weapon = player1.sec_weapon(weapon)
-    print(player1.secondary_weapon)
     if num_players == 2:
         player2 = Player2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
         player2.secondary_weapon = player2.sec_weapon(weapon2)
@@ -96,7 +95,6 @@ def main():
             for shot in shots: 
                 if asteroid.collides_with(shot) == True:
                     asteroid.health -= 1
-                    print(asteroid.health)
                     if asteroid.health <= 0:
                         log_event("asteroid_shot")
                         asteroid.split()
