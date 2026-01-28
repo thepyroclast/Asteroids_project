@@ -85,14 +85,14 @@ class Player1(CircleShape):
         singulartity.velocity = pygame.Vector2(0, 0).rotate(self.rotation)
 
     def sec_weapon(self, chosen_weapon):
-        if chosen_weapon == "main cannon":
+        if chosen_weapon == 1:
             current_weapon = self.big_shoot
             return current_weapon
-        if chosen_weapon == "singularity":
+        if chosen_weapon == 2:
             current_weapon = self.black_hole 
             return current_weapon
         else:
-            raise Exception(f"{chosen_weapon} is not a weapon")
+            raise Exception(f"invalid input")
         
 
 class Player2(CircleShape):
@@ -175,14 +175,14 @@ class Player2(CircleShape):
         singulartity.velocity = pygame.Vector2(0, 0).rotate(self.rotation)
 
     def sec_weapon(self, chosen_weapon):
-        if chosen_weapon == "main cannon":
+        if chosen_weapon == 1:
             current_weapon = self.big_shoot
             return current_weapon
-        if chosen_weapon == "singularity":
+        if chosen_weapon == 2:
             current_weapon = self.black_hole 
             return current_weapon
         else:
-            raise Exception(f"{chosen_weapon} is not a weapon")       
+            raise Exception(f"invalid input")       
 
 
 

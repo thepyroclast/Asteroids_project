@@ -12,19 +12,20 @@ from shot import Shot, Bigshot, Black_hole
 
 
 def main():
-    sec_weapons = ("main cannon", "singularity",)
+    sec_weapons = {1: "main cannon", 
+                   2: "singularity",}
     print(f"Starting Asteroids with pygame version: {pygame.version.ver}")
     print(f"Screen width: {SCREEN_WIDTH}")
     print(f"Screen height: {SCREEN_HEIGHT}")
     num_players = input("number of players(1-2): ")
     num_players = int(num_players)
-    print(f"current secondary weapons: {sec_weapons}")
-    weapon = input("player 1: choose your secondary weapon: ")
-    print(f"selcted weapon is {weapon}")
+    print(f"current secondary weapons:")
+    print(f"1 = {sec_weapons[1]} \n2 = {sec_weapons[2]}")
+    weapon = int(input("player 1: choose your secondary weapon: "))
+    print(f"selcted weapon is {sec_weapons[weapon]}")
     if num_players == 2:
-        weapon2 = input("player 2: choose your secondary weapon: ")
-        print(f"selcted weapon is {weapon2}")
-    
+        weapon2 = int(input("player 2: choose your secondary weapon: "))
+        print(f"selcted weapon is {sec_weapons[weapon2]}")
     pygame.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     clock = pygame.time.Clock()
