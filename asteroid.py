@@ -1,7 +1,7 @@
 #the file containing the asteroids
 import pygame
 from circleshape import CircleShape
-from constants import LINE_WIDTH, ASTEROID_MIN_RADIUS
+from constants import LINE_WIDTH, ASTEROID_MIN_RADIUS, ASTEROID_KINDS
 from logger import log_event
 import random
 
@@ -10,7 +10,7 @@ class Asteroid(CircleShape):
         super().__init__(x, y, radius)
         self.color = color
         self.health = size
-        self.size = size
+        self.size = size 
 
     def make_points(self, position, radius, health):
          point1 = (position[0], position[1] - (radius))
@@ -40,11 +40,11 @@ class Asteroid(CircleShape):
 
     def update(self, dt):
          self.position += self.velocity * dt
-         
+              
     def split(self):
          self.kill()
          if self.color == (229, 72, 242):
-              power_up = PowerUp(self.position[0], self.position[1], 15, (67, 70, 255))
+              power_up = PowerUp(self.position[0], self.position[1], 15, (228, 0, 134))
          if self.radius <= ASTEROID_MIN_RADIUS:
               return
          log_event("asteroid_split")
@@ -52,8 +52,8 @@ class Asteroid(CircleShape):
          asteroid_angle_1 = self.velocity.rotate(angle)
          asteroid_angle_2 = self.velocity.rotate(-angle)
          new_radius = self.radius - ASTEROID_MIN_RADIUS
-         asteroid_1 = Asteroid(self.position[0], self.position[1], new_radius, (255, 255, 255), self.size - 1)
-         asteroid_2 = Asteroid(self.position[0], self.position[1], new_radius, (255, 255, 255), self.size - 1)
+         asteroid_1 = Asteroid(self.position[0], self.position[1], new_radius, (222, 214, 173), self.size - 1)
+         asteroid_2 = Asteroid(self.position[0], self.position[1], new_radius, (222, 214, 173), self.size - 1)
          asteroid_1.velocity = asteroid_angle_1 * 1.2
          asteroid_2.velocity = asteroid_angle_2 * 1.2
 

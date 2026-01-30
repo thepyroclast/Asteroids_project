@@ -37,7 +37,7 @@ class AsteroidField(pygame.sprite.Sprite):
             asteroid.velocity = velocity
             self.power_up_chance = 0.0
         else:
-            asteroid = Asteroid(position.x, position.y, radius, (255, 255, 255), size)
+            asteroid = Asteroid(position.x, position.y, radius, (222, 214, 173), size)
             asteroid.velocity = velocity
             self.power_up_chance += 1.0
 

@@ -1,4 +1,6 @@
 #definition of the player class
+#need to fix bug with both players not being able to turn at once
+#need to make base player class that both inheirit from
 from circleshape import CircleShape
 from constants import PLAYER_RADIUS
 from constants import LINE_WIDTH, PLAYER_TURN_SPEED, PLAYER_SPEED, PLAYER_SHOOT_SPEED, PLAYER_SHOOT_COOLDOWN_SECONDS
@@ -11,7 +13,8 @@ class Player1(CircleShape):
         self.rotation = 0
         self.shot_cooldown_timer = 0
         self.shot_cooldown_timer_second = 0 
-        self.color = (182, 241, 242)
+        self.color = (242, 72, 72)
+        #old color is (182, 241, 242)
         self.secondary_weapon = None
         self.shield = 0 
 
@@ -35,9 +38,10 @@ class Player1(CircleShape):
         self.shot_cooldown_timer_second -= dt 
         self.shield -= dt
         if self.shield > 0:
-            self.color = (67, 70, 255)
+            self.color = (157, 0, 0)
+            #old color is (67, 70, 255)
         else:
-            self.color = (182, 241, 242)
+            self.color = (242, 72, 72)
 
         if keys[pygame.K_a]:
             reverse_dt = -dt
@@ -66,22 +70,22 @@ class Player1(CircleShape):
     def shoot(self):
         if self.shot_cooldown_timer > 0:
             return
-        self.shot_cooldown_timer = PLAYER_SHOOT_COOLDOWN_SECONDS
-        bullet = Shot(self.position[0], self.position[1])
+        self.shot_cooldown_timer = PLAYER_SHOOT_COOLDOWN_SECONDS - 0.1
+        bullet = Shot(self.position[0], self.position[1], self.color)
         bullet.velocity = pygame.Vector2(0, 1).rotate(self.rotation) * PLAYER_SHOOT_SPEED 
 
     def big_shoot(self):
         if self.shot_cooldown_timer_second > 0:
             return
         self.shot_cooldown_timer_second = PLAYER_SHOOT_COOLDOWN_SECONDS * 2
-        bullet = Bigshot(self.position[0], self.position[1])
+        bullet = Bigshot(self.position[0], self.position[1], self.color)
         bullet.velocity = pygame.Vector2(0, 1).rotate(self.rotation) * PLAYER_SHOOT_SPEED 
 
     def black_hole(self):
         if self.shot_cooldown_timer_second > 0:
             return
         self.shot_cooldown_timer_second = PLAYER_SHOOT_COOLDOWN_SECONDS * 2
-        singulartity =  Black_hole(self.position[0], self.position[1])
+        singulartity =  Black_hole(self.position[0], self.position[1], self.color)
         singulartity.velocity = pygame.Vector2(0, 0).rotate(self.rotation)
 
     def sec_weapon(self, chosen_weapon):
@@ -101,7 +105,7 @@ class Player2(CircleShape):
         self.rotation = 0
         self.shot_cooldown_timer = 0
         self.shot_cooldown_timer_second = 0 
-        self.color = (3, 236, 53)
+        self.color = (109, 121, 225)
         self.secondary_weapon = None
         self.shield = 0 
 
@@ -125,24 +129,24 @@ class Player2(CircleShape):
         self.shot_cooldown_timer_second -= dt 
         self.shield -= dt
         if self.shield > 0:
-            self.color = (41, 109, 16)
+            self.color = (67, 70, 255)
         else:
-            self.color = (3, 236, 53)
+            self.color = (109, 121, 225)
 
-        if keys[pygame.K_j]:
+        if keys[pygame.K_SEMICOLON]:
             reverse_dt = -dt
             self.rotate(reverse_dt)
-        if keys[pygame.K_l]:
-            self.rotate(dt)
-        if keys[pygame.K_i]:
-            self.move(dt)
         if keys[pygame.K_k]:
+            self.rotate(dt)
+        if keys[pygame.K_o]:
+            self.move(dt)
+        if keys[pygame.K_l]:
             self.move(-dt)
         if keys[pygame.K_n]:
-            if keys[pygame.K_RSHIFT]:
+            if keys[pygame.K_SLASH]:
                 return
             self.shoot()
-        if keys[pygame.K_RSHIFT]:
+        if keys[pygame.K_SLASH]:
             if keys[pygame.K_n]:
                 return
             self.secondary_weapon()
@@ -156,22 +160,22 @@ class Player2(CircleShape):
     def shoot(self):
         if self.shot_cooldown_timer > 0:
             return
-        self.shot_cooldown_timer = PLAYER_SHOOT_COOLDOWN_SECONDS
-        bullet = Shot(self.position[0], self.position[1])
+        self.shot_cooldown_timer = PLAYER_SHOOT_COOLDOWN_SECONDS - 0.1
+        bullet = Shot(self.position[0], self.position[1], self.color)
         bullet.velocity = pygame.Vector2(0, 1).rotate(self.rotation) * PLAYER_SHOOT_SPEED 
 
     def big_shoot(self):
         if self.shot_cooldown_timer_second > 0:
             return
         self.shot_cooldown_timer_second = PLAYER_SHOOT_COOLDOWN_SECONDS * 2
-        bullet = Bigshot(self.position[0], self.position[1])
+        bullet = Bigshot(self.position[0], self.position[1], self.color)
         bullet.velocity = pygame.Vector2(0, 1).rotate(self.rotation) * PLAYER_SHOOT_SPEED 
 
     def black_hole(self):
         if self.shot_cooldown_timer_second > 0:
             return
         self.shot_cooldown_timer_second = PLAYER_SHOOT_COOLDOWN_SECONDS * 2
-        singulartity =  Black_hole(self.position[0], self.position[1])
+        singulartity =  Black_hole(self.position[0], self.position[1], self.color)
         singulartity.velocity = pygame.Vector2(0, 0).rotate(self.rotation)
 
     def sec_weapon(self, chosen_weapon):

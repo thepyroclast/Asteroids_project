@@ -54,7 +54,6 @@ def main():
         player2 = Player2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
         player2.secondary_weapon = player2.sec_weapon(weapon2)
     asteroid_field = AsteroidField()
-    
     high_scores = _fetch_high_scores()
 
     dt = 0
@@ -96,7 +95,7 @@ def main():
             for shot in shots: 
                 if asteroid.collides_with(shot) == True:
                     asteroid.health -= 1
-                    if asteroid.health <= 0:
+                    if asteroid.health == 0:
                         log_event("asteroid_shot")
                         asteroid.split()
                         kill_count += 1
