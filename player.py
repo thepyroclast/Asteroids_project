@@ -1,6 +1,5 @@
 #definition of the player class
-#need to fix bug with both players not being able to turn at once
-#need to make base player class that both inheirit from
+#need to fix bug with both players not being able to turn at once?
 from circleshape import CircleShape
 from constants import PLAYER_RADIUS
 from constants import LINE_WIDTH, PLAYER_TURN_SPEED, PLAYER_SPEED, PLAYER_SHOOT_SPEED, PLAYER_SHOOT_COOLDOWN_SECONDS

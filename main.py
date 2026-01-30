@@ -12,20 +12,55 @@ from shot import Shot, Bigshot, Black_hole
 
 
 def main():
-    sec_weapons = {1: "main cannon", 
-                   2: "singularity",}
     print(f"Starting Asteroids with pygame version: {pygame.version.ver}")
     print(f"Screen width: {SCREEN_WIDTH}")
     print(f"Screen height: {SCREEN_HEIGHT}")
-    num_players = input("number of players(1-2): ")
-    num_players = int(num_players)
+    possible_player_num = {1: "red team",
+                           2: "blue team"}
+    num_players = -1
+    while num_players == -1:
+        input_players = input("number of players(1-2): ")
+        try:
+            input_players = int(input_players)
+        except ValueError:
+            print(f"{input_players} is not a number")
+        else:
+            if check_if_valid(input_players, possible_player_num) == True:
+                num_players = input_players
+            else:
+                print(f"{input_players} is not a valid number of players. valid numbers are 1-2")
+    sec_weapons = {1: "main cannon", 
+                   2: "singularity",}
     print(f"current secondary weapons:")
     print(f"1 = {sec_weapons[1]} \n2 = {sec_weapons[2]}")
-    weapon = int(input("player 1: choose your secondary weapon: "))
+    temp_bool = False
+    while temp_bool == False:
+        weapon = input("player 1: choose your secondary weapon: ")
+        try:
+            weapon = int(weapon)
+        except ValueError:
+            print(f"{weapon} is not a valid input")
+        else:
+            if check_if_valid(weapon, sec_weapons) == True:
+                temp_bool = True
+            else:
+                print(f"{weapon} is not a valid input")
     print(f"selcted weapon is {sec_weapons[weapon]}")
     if num_players == 2:
-        weapon2 = int(input("player 2: choose your secondary weapon: "))
+        temp_bool = False
+        while temp_bool == False:
+            weapon2 = input("player 2: choose your secondary weapon: ")
+            try:
+                weapon2 = int(weapon2)
+            except ValueError:
+                print(f"{weapon2} is not a valid input")
+            else:
+                if check_if_valid(weapon2, sec_weapons) == True:
+                    temp_bool = True
+                else:
+                    print(f"{weapon2} is not a valid input")
         print(f"selcted weapon is {sec_weapons[weapon2]}")
+
     pygame.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     clock = pygame.time.Clock()
@@ -48,6 +83,7 @@ def main():
     Black_hole.containers = (updatable, drawable, shots)
     PowerUp.containers = (updatable, drawable, power_ups)
 
+    
     player1 = Player1(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, (242, 72, 72), (157, 0, 0))
     player1.secondary_weapon = player1.sec_weapon(weapon, sec_weapons)
     if num_players == 2:
@@ -147,6 +183,11 @@ def _save_high_scores(scores):
 def _sort_by_score(entry):
     return entry["score"]
          
+def check_if_valid(item, dict):
+    if item in dict:
+        return True
+    else:
+        return False
 
     
 
