@@ -23,6 +23,17 @@ class Shot(CircleShape):
 
     def split(self):
          self.kill()
+
+class ShortShot(Shot):
+    def __init__(self, x, y, color):
+         super().__init__(x, y, color)
+
+    def update(self, dt):
+         self.position += self.velocity * dt
+         self.counter += 1 
+         if self.counter == 45:
+              self.kill()
+
          
 
 class Bigshot(CircleShape):

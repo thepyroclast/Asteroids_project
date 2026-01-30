@@ -1,10 +1,11 @@
 #definition of the player class
 #need to fix bug with both players not being able to turn at once?
+import random
 from circleshape import CircleShape
 from constants import PLAYER_RADIUS
 from constants import LINE_WIDTH, PLAYER_TURN_SPEED, PLAYER_SPEED, PLAYER_SHOOT_SPEED, PLAYER_SHOOT_COOLDOWN_SECONDS
 import pygame
-from shot import Shot, Bigshot, Black_hole
+from shot import Shot, Bigshot, Black_hole, ShortShot
 
 class Player(CircleShape):
     def __init__(self, x, y, color, sec_color):
@@ -67,7 +68,18 @@ class Player(CircleShape):
             return
         self.shot_cooldown_timer_second = PLAYER_SHOOT_COOLDOWN_SECONDS * 2
         singulartity =  Black_hole(self.position[0], self.position[1], self.color)
-        singulartity.velocity = pygame.Vector2(0, 0).rotate(self.rotation)
+        singulartity.velocity = pygame.Vector2(0, 1).rotate(self.rotation)
+
+    def shotgun(self):
+        if self.shot_cooldown_timer_second > 0:
+            return
+        self.shot_cooldown_timer_second = PLAYER_SHOOT_COOLDOWN_SECONDS * 5
+        ang = -30
+        while ang < 31:
+            shortshot = ShortShot(self.position[0], self.position[1], self.color)
+            shortshot.velocity = pygame.Vector2(0, 1).rotate(self.rotation) * PLAYER_SHOOT_SPEED
+            shortshot.velocity = shortshot.velocity.rotate(ang)
+            ang += 5
 
     def sec_weapon(self, chosen_weapon, avalible_weapons):
         try: 
@@ -76,6 +88,8 @@ class Player(CircleShape):
                 return self.big_shoot
             elif current_weapon == "singularity":
                 return self.black_hole
+            elif current_weapon == "fragment sprayer":
+                return self.shotgun
             return current_weapon
         except Exception:
             print("invalid input")

@@ -7,7 +7,7 @@ from asteroid import Asteroid, PowerUp
 from asteroidfield import AsteroidField
 from logger import log_event
 import sys
-from shot import Shot, Bigshot, Black_hole
+from shot import Shot, Bigshot, Black_hole, ShortShot
 
 
 
@@ -30,9 +30,11 @@ def main():
             else:
                 print(f"{input_players} is not a valid number of players. valid numbers are 1-2")
     sec_weapons = {1: "main cannon", 
-                   2: "singularity",}
+                   2: "singularity",
+                   3: "fragment sprayer"}
     print(f"current secondary weapons:")
-    print(f"1 = {sec_weapons[1]} \n2 = {sec_weapons[2]}")
+    for weapon in sec_weapons:
+        print(f"{weapon}: {sec_weapons[weapon]}")
     temp_bool = False
     while temp_bool == False:
         weapon = input("player 1: choose your secondary weapon: ")
@@ -81,6 +83,7 @@ def main():
     Shot.containers = (updatable, drawable, shots)
     Bigshot.containers = (updatable, drawable, shots)
     Black_hole.containers = (updatable, drawable, shots)
+    ShortShot.containers = (updatable, drawable, shots)
     PowerUp.containers = (updatable, drawable, power_ups)
 
     
