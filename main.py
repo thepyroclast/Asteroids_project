@@ -48,11 +48,11 @@ def main():
     Black_hole.containers = (updatable, drawable, shots)
     PowerUp.containers = (updatable, drawable, power_ups)
 
-    player1 = Player1(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
-    player1.secondary_weapon = player1.sec_weapon(weapon)
+    player1 = Player1(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, (242, 72, 72), (157, 0, 0))
+    player1.secondary_weapon = player1.sec_weapon(weapon, sec_weapons)
     if num_players == 2:
-        player2 = Player2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
-        player2.secondary_weapon = player2.sec_weapon(weapon2)
+        player2 = Player2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, (109, 121, 225), (67, 70, 255))
+        player2.secondary_weapon = player2.sec_weapon(weapon2, sec_weapons)
     asteroid_field = AsteroidField()
     high_scores = _fetch_high_scores()
 
