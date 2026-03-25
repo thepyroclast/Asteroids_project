@@ -106,9 +106,9 @@ def main():
         for asteroid in asteroids:
             for player in players:
                 if asteroid.collides_with(player) == True:
-                    if player.shield > 0:
+                    if player.shield == True:
                         print("shielded")
-                        player.shield = 0
+                        player.shield = False
                         asteroid.kill()
                         score -= 10
                     else:
@@ -142,7 +142,7 @@ def main():
         for power_up in power_ups:
             for player in players:
                 if power_up.collides_with(player):
-                    player.shield = 100
+                    player.shield = True
                     power_up.split()
         updatable.update(dt)
         for item in drawable:

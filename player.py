@@ -17,7 +17,7 @@ class Player(CircleShape):
         self.main_color = color
         self.sec_color = sec_color
         self.secondary_weapon = None
-        self.shield = 0 
+        self.shield = False
 
     def triangle(self):
         forward = pygame.Vector2(0, 1).rotate(self.rotation)
@@ -37,8 +37,7 @@ class Player(CircleShape):
         keys = pygame.key.get_pressed()
         self.shot_cooldown_timer -= dt
         self.shot_cooldown_timer_second -= dt 
-        self.shield -= dt
-        if self.shield > 0:
+        if self.shield == True:
             self.color = self.sec_color
         else:
             self.color = self.main_color
@@ -103,8 +102,7 @@ class Player1(Player):
         keys = pygame.key.get_pressed()
         self.shot_cooldown_timer -= dt
         self.shot_cooldown_timer_second -= dt 
-        self.shield -= dt
-        if self.shield > 0:
+        if self.shield == True:
             self.color = self.sec_color #(157, 0, 0)
         else:
             self.color = self.main_color #(242, 72, 72)
@@ -133,14 +131,11 @@ class Player2(Player):
     def __init__(self, x, y, color, sec_color):
         super().__init__(x, y, color, sec_color)
         
-
-
     def update(self, dt):
         keys = pygame.key.get_pressed()
         self.shot_cooldown_timer -= dt
         self.shot_cooldown_timer_second -= dt 
-        self.shield -= dt
-        if self.shield > 0:
+        if self.shield == True:
             self.color = self.sec_color #(67, 70, 255)
         else:
             self.color = self.main_color #(109, 121, 225)
