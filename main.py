@@ -115,7 +115,7 @@ def main():
                         log_event("player_hit")
                         player.kill()
                         if not players:
-                            score = score / 60 + kill_count
+                            score = score / 60 + kill_count + (asteroid_field.phase * 5) 
                             int_score = int(score)
                             print("Game over!")
                             print(f"Kill count: {kill_count}!")
@@ -144,6 +144,9 @@ def main():
                 if power_up.collides_with(player):
                     player.shield = True
                     power_up.split()
+        for asteroid in asteroids:
+            if asteroid.position[0] > SCREEN_WIDTH * 1.2 or asteroid.position[0] < -SCREEN_WIDTH * 0.2 or asteroid.position[1] > SCREEN_HEIGHT * 1.2 or asteroid.position[1] < -SCREEN_HEIGHT * 0.2:
+                asteroid.kill()
         updatable.update(dt)
         for item in drawable:
             item.draw(screen)

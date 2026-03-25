@@ -51,8 +51,8 @@ class AsteroidField(pygame.sprite.Sprite):
         if self.phase_progress >= 30:
             self.phase_progress = 0
             self.phase += 1
-            print(f"phase {self.phase} started")
-            print(f"you have survived for {pygame.time.get_ticks() // 1000} seconds")
+            print(f"Phase {self.phase} started")
+            print(f"You have survived for {pygame.time.get_ticks() // 1000} seconds")
         self.get_phase_mult(self.phase)
         self.spawn_timer += dt * self.spw_mult
         if self.spawn_timer > ASTEROID_SPAWN_RATE_SECONDS:
