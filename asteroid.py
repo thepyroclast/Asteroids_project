@@ -28,6 +28,12 @@ class Asteroid(CircleShape):
          if health == 3: 
               list_of_points = [point1, point2, point3]
               return list_of_points
+         if health == 4: 
+              list_of_points = [point1, point2, point3]
+              return list_of_points
+         if health == 5:
+              list_of_points = [point1, point2, point3]
+              return list_of_points
          else:
               raise Exception("incorrectly making points")
 
